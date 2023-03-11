@@ -45,13 +45,13 @@ Vue.config.productionTip = false
 
 
 
-console.info('[Quasar] Running SPA.')
+console.info('[Quasar] Running SSR.')
 
 
 
 
 
-const publicPath = ``
+const publicPath = `/`
 
 
 async function start () {
@@ -62,17 +62,15 @@ async function start () {
   
 
   
-
     
+    const appInstance = new Vue(app)
 
-    
-
-    
-      new Vue(app)
-    
-
-    
-
+    // wait until router has resolved all async before hooks
+    // and async components...
+    router.onReady(() => {
+      
+      appInstance.$mount('#q-app')
+    })
     
 
   
