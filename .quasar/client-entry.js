@@ -45,7 +45,7 @@ import createApp from './app.js'
 
 
 
-const publicPath = `/`
+const publicPath = ``
 
 
 async function start () {
@@ -56,15 +56,17 @@ async function start () {
   
 
   
-    
-    const appInstance = new Vue(app)
 
-    // wait until router has resolved all async before hooks
-    // and async components...
-    router.onReady(() => {
-      
-      appInstance.$mount('#q-app')
-    })
+    
+
+    
+
+    
+      new Vue(app)
+    
+
+    
+
     
 
   

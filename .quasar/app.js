@@ -16,9 +16,6 @@ import Vue from 'vue'
 import './import-quasar.js'
 
 
-import { Quasar } from 'quasar'
-
-
 
 import App from 'app/src/App.vue'
 
@@ -28,11 +25,11 @@ import createRouter from 'app/src/router/index'
 
 
 
-export default async function (ssrContext) {
+export default async function () {
   // create store and router instances
   
   const router = typeof createRouter === 'function'
-    ? await createRouter({Vue, ssrContext})
+    ? await createRouter({Vue})
     : createRouter
   
 
@@ -47,9 +44,7 @@ export default async function (ssrContext) {
 
 
   
-    
-  Quasar.ssrUpdate({ app, ssr: ssrContext })
-    
+  app.el = '#q-app'
   
 
   // expose the app, the router and the store.
