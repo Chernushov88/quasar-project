@@ -1,112 +1,83 @@
 <template>
-  <q-layout view="hHh Lpr fFf"> <!-- Be sure to play with the Layout demo on docs -->
-
-    <!-- (Optional) The Header -->
+  <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <div class="row">
-        <div class="col-3">
-          <q-toolbar>
-            <q-btn
-              flat
-              round
-              dense
-              icon="menu"
-              @click="leftDrawer = !leftDrawer"
-            />
-            <q-toolbar-title>
-              Header
-            </q-toolbar-title>
-          </q-toolbar>
-        </div>
-        <div class="col-9">
-          <q-tabs>
-            <q-route-tab
-              icon="map"
-              to="/your/route"
-              replace
-              label="One Tab"
-            />
-            <q-route-tab
-              icon="assignment"
-              to="/some/other/route"
-              replace
-              label="Other Tab"
-            />
-          </q-tabs>
-        </div>
-      </div>
+      <q-toolbar>
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="leftDrawerOpen = !leftDrawerOpen"
+        />
+
+        <q-toolbar-title>
+          Quasar App
+        </q-toolbar-title>
+
+        <div>Quasar v{{ $q.version }}</div>
+      </q-toolbar>
     </q-header>
 
-    <!-- (Optional) The Footer -->
-    <q-footer>
-      <div class="row">
-        <div class="col-3">
-          <q-toolbar>
-            <q-btn
-              flat
-              round
-              dense
-              icon="menu"
-              @click="leftDrawer = !leftDrawer"
-            />
-            <q-toolbar-title>
-              Footer
-            </q-toolbar-title>
-          </q-toolbar>
-        </div>
-        <div class="col-9">
-          <q-tabs switch-indicator>
-            <q-route-tab
-              icon="map"
-              to="/your/route"
-              replace
-              label="One Tab"
-            />
-            <q-route-tab
-              icon="assignment"
-              to="/some/other/route"
-              replace
-              label="Other Tab"
-            />
-          </q-tabs>
-
-
-
-        </div>
-      </div>
-
-
-
-    </q-footer>
-
-    <!-- (Optional) A Drawer; you can add one more with side="right" or change this one's side -->
     <q-drawer
-      v-model="leftDrawer"
-      side="left"
+      v-model="leftDrawerOpen"
+      show-if-above
       bordered
-      content-class="bg-grey-2"
+      content-class="bg-grey-1"
     >
-      <!-- QScrollArea is optional -->
-      <q-scroll-area class="fit q-pa-sm">
-        <!-- Content here -->
-      </q-scroll-area>
+      <q-list>
+        <q-item-label
+          header
+          class="text-grey-8"
+        >
+          Essential Links
+        </q-item-label>
+        <EssentialLink
+          v-for="link in essentialLinks"
+          :key="link.title"
+          v-bind="link"
+        />
+      </q-list>
     </q-drawer>
 
     <q-page-container>
-      <!-- This is where pages get injected -->
       <router-view />
     </q-page-container>
-
   </q-layout>
 </template>
 
 <script>
-export default {
-  // name: 'LayoutName',
+import EssentialLink from 'components/EssentialLink.vue'
+const linksData = [
+  {
+    title: 'Home',
+    caption: 'home',
+    icon: 'home',
+    link: '/'
+  },
+  {
+    title: 'Github',
+    caption: 'github.com/quasarframework',
+    icon: 'code',
+    link: 'https://github.com/quasarframework'
+  },
+  {
+    title: 'Quasar',
+    caption: 'Community Quasar projects',
+    icon: 'favorite',
+    link: 'https://quasar.dev'
+  }
+]
 
+export default {
+  name: 'LayoutName',
+  components: {
+    EssentialLink
+  },
   data () {
     return {
-      leftDrawer: true
+      leftDrawerOpen: false,
+      essentialLinks: linksData
     }
   }
 }
